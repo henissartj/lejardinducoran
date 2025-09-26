@@ -33,7 +33,7 @@ interface SurahInfo {
 
   language: string;
   currentReciter: string;
-  onReciterChange: (reciter: string) => void;
+  onReciterChange: (reciter: string) => void,
   getAudioUrl: (globalAyahNumber: number) => string;
   loadSurah: (surahNumber: number) => Promise<QuranVerse[]>;
   isBookmarked: (ayahRef: string) => boolean;
