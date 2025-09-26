@@ -31,7 +31,6 @@ interface SurahInfo {
   revelationType: string;
 }
 
-interface QuranReaderProps {
   language: string;
   currentReciter: string;
   onReciterChange: (reciter: string) => void;
@@ -44,7 +43,6 @@ interface QuranReaderProps {
   onVerseClick: (verse: QuranVerse) => void;
 }
 
-export const QuranReader: React.FC<QuranReaderProps> = ({
   language,
   currentReciter,
   onReciterChange,
@@ -670,10 +668,7 @@ export const QuranReader: React.FC<QuranReaderProps> = ({
               
               return (
                 <div 
-                  ref={(el) => {
-                    if (el) {
-                      verseRefs.current.set(verse.number, el);
-                    }
+                  className="ayah-verse bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200"
                   }}
                   key={`${verse.number}-${index}`} 
                   className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm p-3 sm:p-6 transition-all duration-200 cursor-pointer hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-750 border border-transparent hover:border-[#43ada4]/20 ${
