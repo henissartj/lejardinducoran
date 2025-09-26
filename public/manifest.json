@@ -1,0 +1,75 @@
+{
+  "name": "Le Jardin du Coran",
+  "short_name": "Jardin Coran",
+  "description": "Application moderne pour lire, étudier et approfondir la compréhension du Saint Coran",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f766e",
+  "theme_color": "#0d9488",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["education", "books", "lifestyle"],
+  "icons": [
+    {
+      "src": "/Logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/Logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Logo.svg",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/Logo.svg",
+      "sizes": "750x1334",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Recherche",
+      "short_name": "Recherche",
+      "description": "Rechercher dans le Coran",
+      "url": "/?action=search",
+      "icons": [
+        {
+          "src": "/Logo.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Lecture",
+      "short_name": "Lecture",
+      "description": "Lire le Coran",
+      "url": "/?action=read",
+      "icons": [
+        {
+          "src": "/Logo.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d9488" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Jardin Coran" />
+    <link rel="apple-touch-icon" href="/Logo.svg" />
+    <title>Le Jardin du Coran - Recherche et Lecture</title>
+    <meta name="description" content="Le Jardin du Coran - Application de recherche et lecture du Coran en français et arabe avec récitation audio" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Enregistrement du Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+              
+              // Vérifier les mises à jour
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                if (newWorker) {
+                  newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      // Nouvelle version disponible
+                      if (confirm('Une nouvelle version est disponible. Voulez-vous la charger ?')) {
+                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                        window.location.reload();
+                      }
+                    }
+                  });
+                }
+              });
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+
+      // Gestion de l'installation PWA
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Afficher un bouton d'installation personnalisé
+        const installButton = document.createElement('button');
+        installButton.textContent = 'Installer l\'application';
+        installButton.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background: #0d9488;
+          color: white;
+          border: none;
+          padding: 12px 16px;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          z-index: 1000;
+          transition: all 0.2s ease;
+        `;
+        
+        installButton.addEventListener('mouseenter', () => {
+          installButton.style.background = '#0f766e';
+          installButton.style.transform = 'translateY(-2px)';
+        });
+        
+        installButton.addEventListener('mouseleave', () => {
+          installButton.style.background = '#0d9488';
+          installButton.style.transform = 'translateY(0)';
+        });
+        
+        installButton.addEventListener('click', () => {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            }
+            deferredPrompt = null;
+            installButton.remove();
+          });
+        });
+        
+        document.body.appendChild(installButton);
+        
+        // Masquer le bouton après 10 secondes
+        setTimeout(() => {
+          if (installButton.parentNode) {
+            installButton.remove();
+          }
+        }, 10000);
+      });
+    </script>
+  </body>
+</html>
